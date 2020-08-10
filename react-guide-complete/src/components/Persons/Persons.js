@@ -1,0 +1,24 @@
+import React from 'react';
+import Person from './Person/Person';
+
+const Persons = (props) => (
+	<div>
+		{props.persons.map((person, index) => {
+			return (
+				<Person
+					click={() => props.clicked(index)}
+					name={person.name}
+					key={person.id}
+					age={person.age}
+					changed={(event) =>
+						props.changed(
+							event,
+							person.id
+					)}
+				/>
+			);
+		})}
+	</div>
+);
+
+export default Persons;
