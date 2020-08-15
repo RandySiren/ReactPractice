@@ -4,15 +4,29 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
-    state = {
-        persons: [
-            { id: 'fjeowax', name: 'Max', age: 28 },
-            { id: 'fjeowa6', name: 'Manu', age: 29 },
-            { id: 'fjeowa1', name: 'Stephanie', age: 26 },
-        ],
-        otherState: 'some other value',
-        showPersons: false,
-    };
+    constructor(props) {
+        super(props);
+        console.log('[App.js] constructor');
+
+        this.state = {
+            persons: [
+                { id: 'fjeowax', name: 'Max', age: 28 },
+                { id: 'fjeowa6', name: 'Manu', age: 29 },
+                { id: 'fjeowa1', name: 'Stephanie', age: 26 },
+            ],
+            otherState: 'some other value',
+            showPersons: false,
+        };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('[App.js] getDerivedStateFromProps', props);
+        return state;
+    }
+
+    componentDidMount() {
+        console.log('[App.js] mounted');
+    }
 
     nameChangedHandler = (event, id) => {
         // Mutating state properly without changing state directly
@@ -49,27 +63,28 @@ class App extends Component {
     };
 
     render() {
+        console.log('[App.js] render');
         let persons = null;
 
         if (this.state.showPersons) {
             persons = (
-				<Persons
-					persons={this.state.persons}
-					clicked={this.deletePersonHandler}
-					changed={this.nameChangedHandler}
-				/>
+                <Persons
+                    persons={this.state.persons}
+                    clicked={this.deletePersonHandler}
+                    changed={this.nameChangedHandler}
+                />
             );
         }
 
         return (
             <div className={classes.App}>
-				<Cockpit
-					title={this.props.title}
-					persons={this.state.persons}
-					showPersons={this.state.showPersons}
-					toggled={this.togglePersonsHandler}
-				/>
-				{persons}
+                <Cockpit
+                    title={this.props.title}
+                    persons={this.state.persons}
+                    showPersons={this.state.showPersons}
+                    toggled={this.togglePersonsHandler}
+                />
+                {persons}
             </div>
         );
     }
