@@ -4,11 +4,7 @@ import classes from './Cockpit.module.css';
 const Cockpit = (props) => {
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
-        // Http request...
-        setTimeout(() => {
-            alert('Saved data to cloud!');
-        }, 1000);
-    }, [props.persons]);
+    });
 
     const assignedClasses = [];
     let btnClass = '';
